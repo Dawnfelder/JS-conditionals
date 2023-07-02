@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        height: 100vh;
+      }
+
+      .dark-mode {
+        background-color: black;
+        color: white;
+      }
+
+      .box {
+        height: 200px;
+        width: 400px;
+        background-color: teal;
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .is-clicked {
+        background: coral;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="demo"></div>
+
+    <br/>
+
+    <div id="demo-2">Let's evaluate the quality of your name. 
+      <br><br>
+      Please enter your name here: <input type="text" id="input"> <button id="evaluate">Evaluate</button>
+    </div><br/>
+
+    <div id="output-container"></div><br/>
+
+    <div id="box" class="box">
+      <p>Click me pls!</p>
+    </div>
+
+    <script>
+      // conditional: time of day
+
+      const hours = new Date().getHours();
+      let greeting;
+      console.log("latest full hour of day is: " + hours);
+
+      if (hours < 18) {
+        greeting = "Good day.";
+      } else if (hours < 12) {
+        greeting = "Good morning.";
+      } else {
+        greeting = "Good evening.";
+      }
+
+      document.getElementById("demo").innerHTML = greeting;
+
+      // conditional: click, character count
+
+      function checkName() {
+      const name = document.getElementById('input').value;
+      const nameLength = name.length;
+      console.log("name entered:" + name);
+      console.log("characters: " + nameLength);
+
+      if (nameLength > 5) {
+        document.getElementById("output-container").innerHTML =
+          "Congratulations " + name + ", your name has more than 5 letters! Woohoo!";
+          document.getElementById('input').style.color = "green";
+      } else {
+        document.getElementById("output-container").innerHTML =
+          "Oh dear " + name + ", you don't even have 5 letters to your name (pun intended)...queue sad music.";
+          document.getElementById('input').style.color = "red";
+      }
+      }
+
+      const evaluateButton = document.getElementById('evaluate');
+      evaluateButton.addEventListener('click', checkName);
+
+      // conditional: click
+
+      const box = document.getElementById("box");
+
+      function handleClick() {
+        if (box.classList.contains("is-clicked")) {
+          console.log("has class");
+          box.classList.remove("is-clicked");
+        } else {
+          console.log("does not have class");
+          box.classList.add("is-clicked");
+        }
+      }
+
+      box.addEventListener("click", handleClick);
+
+      // conditional: click (+ adding button with JS)
+
+      const darkButton = document.createElement("button");
+      darkButton.innerHTML = "Toggle dark mode (on/off)";
+      darkButton.style.position = "fixed";
+      darkButton.style.bottom = "10px";
+      darkButton.style.right = "10px";
+      document.body.appendChild(darkButton);
+
+      const body = document.body;
+
+      function darkMode() {
+        if (body.classList.contains("dark-mode")) {
+          body.classList.remove("dark-mode");
+        } else {
+          body.classList.add("dark-mode");
+        }
+      }
+
+      darkButton.addEventListener("click", darkMode);
+    </script>
+  </body>
+</html>
